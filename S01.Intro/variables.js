@@ -13,7 +13,14 @@ const test = ('b' + 'a' + + 'a' + 'a').toLowerCase();
 console.log(test);
 
 function infoUser(firstName, age) {
-    return "Bonjour je m'appelle " + firstName + " et j'ai " + age + " ans.";
+    //return "Bonjour je m'appelle " + firstName + " et j'ai " + age + " ans.";
+    return `Bonjour je m'appelle ${firstName} et j'ai ${age} ans.`;
 }
 
+const result = infoUser('Yannick', 37);
 console.log(infoUser(firstName, age));
+
+const equalTestUn = 1 == '1';
+const equalTestDeux = 1 === '1'
+console.log(equalTestDeux);
+
