@@ -1,0 +1,17 @@
+{
+  "name": "s02.http",
+  "version": "1.0.0",
+  "description": "Premier projet dans le cours 3E4",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js"
+  },
+  "author": "Yannick Charron",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.6.0",
+    "chalk-animation": "^2.0.3",
+    "express": "^5.1.0"
+  }
+}

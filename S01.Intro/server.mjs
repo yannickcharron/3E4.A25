@@ -6,6 +6,6 @@ const myFirstServer = createServer((request, response) => {
     response.end('<p><strong>Bonjour de mon serveur</strong></p>');
 });
 
-myFirstServer.listen(3000, '127.0.0.1', () => {
+myFirstServer.listen(3000, () => {
     console.log(`Le serveur est en mode écoute sur http://127.0.0.1:3000`);
 })
