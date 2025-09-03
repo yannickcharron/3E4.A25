@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "S02.http",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

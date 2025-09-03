@@ -1,6 +1,15 @@
 import express from 'express';
+import dayjs from 'dayjs';
 
+import utc from 'dayjs/plugin/utc.js'
+import timezone from 'dayjs/plugin/timezone.js'
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm Z'
 const app = express();
+
 
 app.get('/html', (req, res) => {
   //Retourner le status
@@ -40,6 +49,31 @@ app.get('/math/:operation', (req, res) => {
   res.status(200);
   res.set('Content-Type', 'text/plain');
   res.send(result);
+});
+
+
+app.get('/date', (req, res) => {
+
+  res.status(200);
+  res.set('Content-Type', 'text/plain');
+  
+  const dateNow = dayjs().format(DATETIME_FORMAT);
+  const dateWithTimezone = dayjs.tz(dayjs(), 'Australia/Adelaide').format(DATETIME_FORMAT);
+  res.send(dateWithTimezone);
+
+});
+
+app.get('/error', (req, res) => {
+  res.status(418);
+  res.set('Content-Type', 'text/plain');
+  res.send('Erreur');
+})
+
+app.get('/math/conversions/:base', (req, res) => {
+
+  //base (binaire ou hex)
+  //?number
+
 });
 
 export default app;

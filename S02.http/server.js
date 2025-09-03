@@ -3,13 +3,13 @@ import chalkAnimation from 'chalk-animation';
 
 import app from './src/app.js';
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
 
-    console.log(chalk.hex('#7852A9').bold('Bonjour avec Chalk'));
+    console.log(chalk.hex('#7852A9').bold(`👽 Loading environment for ${process.env.ENV} 👽`));
 
-    chalkAnimation.rainbow(`🚀 Serveur en écoute sur le port ${PORT} 🚀`);
+    chalkAnimation.rainbow(`🚀 Server listening on ${PORT} 🚀`);
 });
 
 
