@@ -1,0 +1,19 @@
+meta {
+  name: Conversion Hex
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:3000/math/conversions/hex?number=703
+  body: none
+  auth: inherit
+}
+
+params:query {
+  number: 703
+}
+
+settings {
+  encodeUrl: true
+}
