@@ -1,0 +1,19 @@
+meta {
+  name: [501] - Update Complet One planet
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/planets/1
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 501
+}
+
+settings {
+  encodeUrl: true
+}

@@ -7,6 +7,7 @@ import timezone from 'dayjs/plugin/timezone.js';
 import errors from './middlewares/errors.js';
 
 import mathRoutes from './routes/math.routes.js';
+import planetsRoutes from './routes/planets.routes.js';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -39,9 +40,10 @@ app.get('/error', (req, res) => {
   res.status(418);
   res.set('Content-Type', 'text/plain');
   res.send('Erreur');
-})
+});
 
 app.use('/math', mathRoutes);
+app.use('/planets', planetsRoutes);
 
 app.use(errors);
 

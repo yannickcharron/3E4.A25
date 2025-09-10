@@ -1,0 +1,19 @@
+meta {
+  name: [405] - Update Partial One planet
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3000/planets/1
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 405
+}
+
+settings {
+  encodeUrl: true
+}
