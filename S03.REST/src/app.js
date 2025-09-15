@@ -5,9 +5,11 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
 import errors from './middlewares/errors.js';
+import method from './middlewares/method.js';
 
 import mathRoutes from './routes/math.routes.js';
 import planetsRoutes from './routes/planets.routes.js';
+
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -15,6 +17,8 @@ dayjs.extend(timezone);
 const DATETIME_FORMAT = 'YYYY-MM-DD HH:mm Z';
 const app = express();
 
+app.use(express.json());
+//app.use(method); L'ensemble des routes passe par le middleware
 
 app.get('/html', (req, res) => {
   //Retourner le status

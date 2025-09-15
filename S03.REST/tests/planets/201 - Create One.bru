@@ -1,0 +1,22 @@
+meta {
+  name: 201 - Create One
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{BASE_URL}}/planets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 1204,
+    "name": "NouvellePlanet"
+  }
+}
+
+settings {
+  encodeUrl: true
+}
