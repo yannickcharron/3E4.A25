@@ -1,8 +1,10 @@
-import express from 'express';
 import dayjs from 'dayjs';
+import express from 'express';
 
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+
+import database from './core/database.js';
 
 import errors from './middlewares/errors.js';
 import method from './middlewares/method.js';
@@ -10,6 +12,7 @@ import method from './middlewares/method.js';
 import mathRoutes from './routes/math.routes.js';
 import planetsRoutes from './routes/planets.routes.js';
 
+database();
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

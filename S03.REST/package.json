@@ -15,6 +15,7 @@
     "dayjs": "^1.11.18",
     "express": "^5.1.0",
     "http-errors": "^2.0.0",
-    "mongoose": "^8.18.1"
+    "mongoose": "^8.18.1",
+    "uuid": "^13.0.0"
   }
 }
