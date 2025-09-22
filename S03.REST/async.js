@@ -30,4 +30,41 @@ function exemple2() {
     console.log('9');
 }
 
-exemple2();
+
+function exemplePromise() {
+
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('une seconde');
+            reject('Yannick est reject');
+        }, 1000);
+    })
+
+    promise.then(r => {
+        console.log('promesse terminée');
+    }).catch(err => {
+        console.log(err);
+    });
+
+}
+
+async function exempleAsync() {
+
+    let promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('une seconde');
+            resolve('promesse terminée');
+        }, 1000);
+    })
+
+    try {
+        let result = await promise;
+        console.log(result);
+    } catch(err) {
+        console.log('catch');
+        console.log(err);
+    }
+}
+
+exempleAsync();
+
