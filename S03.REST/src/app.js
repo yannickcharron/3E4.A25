@@ -11,6 +11,7 @@ import method from './middlewares/method.js';
 
 import mathRoutes from './routes/math.routes.js';
 import planetsRoutes from './routes/planets.routes.js';
+import explorersRoutes from './routes/explorers.routes.js';
 
 database();
 
@@ -49,8 +50,10 @@ app.get('/error', (req, res) => {
   res.send('Erreur');
 });
 
+
 app.use('/math', mathRoutes);
 app.use('/planets', planetsRoutes);
+app.use('/explorers', explorersRoutes);
 
 app.use(errors);
 

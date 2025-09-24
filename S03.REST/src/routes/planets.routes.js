@@ -18,7 +18,23 @@ router.patch('/:idPlanet', method, patch); //Mettre à jour une planète
 
 async function getAll(req, res, next) {
   try {
-    const planets = await planetsRepository.retrieveAll();
+    const transformsOptions = {};
+
+    if (req.query.unit) {
+      if (req.query.unit !== 'c') {
+        return next(HttpError.BadRequest(`Param unit needs to be c`));
+      }
+      transformsOptions.unit = req.query.unit;
+    }
+
+    let planets = await planetsRepository.retrieveAll();
+
+    planets = planets.map((p) => {
+      p = p.toObject();
+      p = planetsRepository.transform(p, transformsOptions);
+      return p;
+    });
+
     res.status(200).json(planets);
   } catch (err) {
     return next(err);
@@ -29,8 +45,8 @@ async function getOne(req, res, next) {
   try {
     const transformsOptions = {};
 
-    if(req.query.unit) {
-      if(req.query.unit !== 'c') {
+    if (req.query.unit) {
+      if (req.query.unit !== 'c') {
         return next(HttpError.BadRequest(`Param unit needs to be c`));
       }
       transformsOptions.unit = req.query.unit;
@@ -38,7 +54,7 @@ async function getOne(req, res, next) {
 
     let planet = await planetsRepository.retrieveByUUID(req.params.uuidPlanet);
 
-    if(!planet) {
+    if (!planet) {
       return next(HttpError.NotFound(`Planet with ${req.params.uuidPlanet} doesn't exist.`));
     }
 
@@ -46,11 +62,9 @@ async function getOne(req, res, next) {
     planet = planetsRepository.transform(planet, transformsOptions);
 
     res.status(200).json(planet);
-
   } catch (err) {
     return next(err);
   }
-
 }
 
 function post(req, res, next) {

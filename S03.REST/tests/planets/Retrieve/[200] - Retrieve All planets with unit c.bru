@@ -1,0 +1,23 @@
+meta {
+  name: [200] - Retrieve All planets with unit c
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{BASE_URL}}/planets?unit=c
+  body: none
+  auth: inherit
+}
+
+params:query {
+  unit: c
+}
+
+assert {
+  res.status: eq 200
+}
+
+settings {
+  encodeUrl: true
+}
