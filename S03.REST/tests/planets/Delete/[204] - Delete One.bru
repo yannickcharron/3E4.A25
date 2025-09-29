@@ -5,9 +5,14 @@ meta {
 }
 
 delete {
-  url: {{BASE_URL}}/planets/40
+  url: {{BASE_URL}}/planets/{{uuidToDelete}}
   body: none
   auth: inherit
+}
+
+assert {
+  res.status: eq 204
+  res.body: isEmpty
 }
 
 settings {

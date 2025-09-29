@@ -12,9 +12,9 @@ const router = Router();
 router.get('/', getAll); //Retrouver toutes les planètes
 router.get('/:uuidPlanet', getOne); //Retrouver une planète
 router.post('/', post); //Créer une planète
-router.delete('/:idPlanet', method, deleteOne); //Supprimer une planète
-router.put('/:idPlanet', method, put); //Mettre à jour une planète
-router.patch('/:idPlanet', method, patch); //Mettre à jour une planète
+router.delete('/:uuidPlanet', method, deleteOne); //Supprimer une planète
+router.put('/:uuidPlanet', method, put); //Mettre à jour une planète
+router.patch('/:uuidPlanet', method, patch); //Mettre à jour une planète
 
 async function getAll(req, res, next) {
   try {
@@ -67,33 +67,45 @@ async function getOne(req, res, next) {
   }
 }
 
-function post(req, res, next) {
+async function post(req, res, next) {
   const newPlanet = req.body;
 
-  if (!newPlanet) {
-    return next(HttpError.BadRequest('Planet cannot be empty.'));
-  }
-  //findIndex peut être remplacé par find
-  const indexPlanet = planetsData.findIndex((p) => p.id === newPlanet.id);
-  if (indexPlanet !== -1) {
-    return next(HttpError.Conflict(`Planet with id ${newPlanet.id} already exists`));
+  if(Object.keys(newPlanet).length === 0) {
+    return next(HttpError.BadRequest('Body cannot be empty'));
   }
 
-  planetsData.push(newPlanet);
-  res.status(201).json(newPlanet);
+  if(newPlanet.uuid) {
+    return next(HttpError.BadRequest('uuid cannot be in body'));
+  }
+
+  try {
+    let planet = await planetsRepository.create(newPlanet);
+
+    planet = planet.toObject();
+    planet = planetsRepository.transform(planet);
+
+    res.status(201).json(planet);
+
+  } catch(err) {
+    return next(err);
+  }
+  
 }
 
-function deleteOne(req, res, next) {
-  const idPlanet = parseInt(req.params.idPlanet, 10);
-  const indexPlanet = planetsData.findIndex((p) => p.id === idPlanet);
-  console.log(req.yannick);
+async function deleteOne(req, res, next) {
 
-  if (indexPlanet === -1) {
-    return next(HttpError.NotFound(`Planet with id ${idPlanet} not found`));
+  try {
+    const planetDeleted = await planetsRepository.delete(req.params.uuidPlanet);
+    if(!planetDeleted) {
+      return next(HttpError.NotFound('planet not found'));
+    }
+    
+    res.status(204).end();
+
+  } catch(err) {
+    return next(err);
   }
-  planetsData.splice(indexPlanet, 1);
 
-  res.status(204).end();
 }
 
 function put(req, res, next) {

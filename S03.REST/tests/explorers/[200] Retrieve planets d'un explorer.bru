@@ -1,0 +1,20 @@
+meta {
+  name: [200] Retrieve planets d'un explorer
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{BASE_URL}}/explorers/Skadex/planets
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 200
+  res.body: isArray
+}
+
+settings {
+  encodeUrl: true
+}

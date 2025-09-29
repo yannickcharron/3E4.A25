@@ -1,0 +1,42 @@
+meta {
+  name: [409] - Create One with uuid
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/planets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "position": {
+        "x": -907.7854745373714,
+        "y": -709.9920437995298,
+        "z": 762.2001258640787
+      },
+      "uuid": "1b8fe9aa-f25e-42f3-9238-c200e544b6e9",
+      "name": "Nightandia",
+      "discoveredBy": "Yannick",
+      "discoveryDate": "2025-09-29",
+      "temperature": 200,
+      "satellites": [
+        "Charron"
+      ]
+  }
+}
+
+assert {
+  res.status: eq 400
+  res.body: isJson
+}
+
+script:pre-request {
+  bru.setVar("planetNumber", Math.round(Math.random() * 100000));
+}
+
+settings {
+  encodeUrl: true
+}

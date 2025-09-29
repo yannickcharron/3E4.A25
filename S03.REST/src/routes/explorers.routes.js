@@ -7,14 +7,23 @@ const router = Router();
 
 router.get('/:explorerName/planets', getExplorerPlanets);
 
-function getExplorerPlanets(req, res, next) {
-
+async function getExplorerPlanets(req, res, next) {
+    
     try {
+
+        let planets = await planetsRepository.retrieveByExplorer(req.params.explorerName);
+        
+        planets = planets.map( p => {
+            p = p.toObject();
+            p = planetsRepository.transform(p);
+            return p;
+        });
+
+        res.status(200).json(planets);
 
     } catch(err) {
         return next(err);
     }
-
 
 }
 

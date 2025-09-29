@@ -1,0 +1,20 @@
+meta {
+  name: [404] - Delete One not Found
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{BASE_URL}}/planets/1f8d1fee-7a03-4c38-9d29-bf7bc237f58e
+  body: none
+  auth: inherit
+}
+
+assert {
+  res.status: eq 404
+  res.body: isJson
+}
+
+settings {
+  encodeUrl: true
+}

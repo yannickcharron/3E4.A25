@@ -1,0 +1,28 @@
+meta {
+  name: [400] - Create One Body empty
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/planets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {}
+}
+
+assert {
+  res.status: eq 400
+  res.body: isJson
+}
+
+script:pre-request {
+  bru.setVar("planetNumber", Math.round(Math.random() * 100000));
+}
+
+settings {
+  encodeUrl: true
+}

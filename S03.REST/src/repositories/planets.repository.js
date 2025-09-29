@@ -32,7 +32,15 @@ class PlanetsRepository {
     return Planet.findOne({ uuid: uuid });
   }
 
-  transform(planet, options) {
+  create(newPlanet) {
+    return Planet.create(newPlanet);
+  }
+
+  delete(uuidPlanet) {
+    return Planet.findOneAndDelete({uuid: uuidPlanet});
+  }
+
+  transform(planet, options = {}) {
     if (options.unit === 'c') {
       planet.temperature += ZERO_KELVIN;
       //planet.temperature = parseFloat((planet.temperature + ZERO_KELVIN).toFixed(2));
@@ -44,6 +52,7 @@ class PlanetsRepository {
     const valeurBase10 = parseInt('0x8676', 16);
 
     delete planet._id;
+    delete planet.__v;
 
     return planet;
   }
