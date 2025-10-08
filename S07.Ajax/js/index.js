@@ -24,10 +24,12 @@ async function retrievePlanets() {
 }
 
 function displayPlanet(planet) {
-    let planetTag = `<div class="card col-2 mx-2 my-2">`;
-    planetTag += `<img src="${planet.icon}" alt="L'image de la planète ${planet.name}" />`;
+    let planetTag = `<a class="card col-2 mx-2 my-2" href="./details.html?planet=${planet.href}">`;
+    planetTag += `<div>`;
+    planetTag += `<img src="${planet.icon}" class="card-img-top" alt="L'image de la planète ${planet.name}" />`;
     planetTag += `<h5 class="card-title">${planet.name}</h5>`;
     planetTag += `</div>`;
+    planetTag += `</a>`;
 
     return planetTag;
 }
