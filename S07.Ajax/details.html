@@ -13,6 +13,8 @@
       referrerpolicy="no-referrer"
     />
 
+    <link rel="stylesheet" href="./css/style.css" />
+
     <!-- Script: Javascript dynamiser le site -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
@@ -36,6 +38,54 @@
     <script src="./js/details.js" type="module"></script>
   </head>
   <body>
-    <div id="planet"></div>
+    <div class="container">
+      <h1>Détails de la planète</h1>
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div id="info-planet" class="col-4">
+              <img id="imgPlanet" />
+              <h2 id="lblName"></h2>
+            </div>
+            <div id="details-planet" class="col-8">
+              <div class="row">
+                <label class="col-4" for="lblDiscoveredBy">Découverte par: </label>
+                <p class="col-8" id="lblDiscoveredBy"></p>
+              </div>
+              <div class="row">
+                <label class="col-4" for="lblDiscoveryDate">Date de découverte: </label>
+                <p class="col-8" id="lblDiscoveryDate"></p>
+              </div>
+              <div class="row">
+                <label class="col-4" for="lblTemperature">Temperature: </label>
+                <p class="col-8" id="lblTemperature"></p>
+              </div>
+              <div class="row">
+                <label class="col-4" for="lblPosition">Position: </label>
+                <p class="col-8" id="lblPosition"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <h5>Satellites</h5>
+          <ul id="satellites"></ul>
+        </div>
+      </div>
+      <div class="row">
+        <h3>Portals</h3>
+        <div class="col-8">
+          <table id="portals" class="table">
+            <thead>
+              <tr>
+                <th>Position</th>
+                <th>Affinity</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
