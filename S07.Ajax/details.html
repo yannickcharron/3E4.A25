@@ -64,6 +64,13 @@
                 <label class="col-4" for="lblPosition">Position: </label>
                 <p class="col-8" id="lblPosition"></p>
               </div>
+              <div class="row">
+                <button id="btnExtraction" 
+                type="button" 
+                class="btn btn-success" 
+                data-bs-toggle="modal" 
+                data-bs-target="#extractionModal">Extraction</button>
+              </div>
             </div>
           </div>
         </div>
@@ -85,7 +92,59 @@
             <tbody></tbody>
           </table>
         </div>
+        <div class="col-4">
+          <div class="row">
+            <h5>Découverte d'un portal</h5>
+          </div>
+          <div class="form-group">
+            <label for="txtPortalPosition"></label>
+            <input type="text" class="form-control" id="txtPortalPosition" />
+          </div>
+          <div class="form-group">
+            <label for="cboAffinity" class="form-label">Affinity</label>
+            <select class="form-select" id="cboAffinity">
+              <option>air</option>
+              <option>darkness</option>
+              <option>earth</option>
+              <option>energy</option>
+              <option>fire</option>
+              <option>life</option>
+              <option>light</option>
+              <option>logic</option>
+              <option>music</option>
+              <option>space</option>
+              <option>toxic</option>
+              <option>water</option>
+            </select>
+          </div>
+          <button id="btnAddPortal" class="btn btn-primary mt-3">Ajouter le portal</button>
+        </div>
       </div>
     </div>
   </body>
+
+  <div class="modal" id="extractionModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Extraction</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table id="extraction" class="table">
+            <thead>
+              <tr>
+                <th scope="col">Element</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </html>
