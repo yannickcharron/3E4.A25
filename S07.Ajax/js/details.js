@@ -1,4 +1,5 @@
 import { extractUrlParams } from './extractParams.js';
+import { ELEMENT_IMG_URL } from './constants.js';
 
 const urlParams = extractUrlParams();
 
@@ -12,6 +13,11 @@ $(document).ready(async () => {
   $('#btnAddPortal').click(() => {
     addPortal();
   });
+
+  $('#btnExtraction').click(() => {
+    extractElements();
+  });
+
 });
 
 async function retrievePlanet(href) {
@@ -87,6 +93,48 @@ async function addPortal() {
   }
 }
 
-function extractElements() {
-    
+async function extractElements() {
+    const extractURL = `${urlParams.planet}/actions?type=mine`;
+
+    const res = await axios.get(extractURL);
+    if(res.status === 200) {
+      
+      const extractions = res.data;
+      $('#extraction tbody').empty();
+
+      extractions.forEach(e => {
+        let extractionTr = '<tr>';
+        extractionTr += `<td><img class="imgElement" src="${ELEMENT_IMG_URL}/${e.element}.png"></td><td>${e.quantity}</td>`;
+        extractionTr += '</tr>';
+
+        $('#extraction tbody').append(extractionTr);
+
+      });
+
+      saveInventory(extractions);
+    }
+}
+
+function saveInventory(extractions) {
+
+  //localStorage['inventory']
+  let inventory = JSON.parse(localStorage.getItem('inventory'));
+
+  if(!inventory) {
+    inventory = [];
+  }
+
+  //Ajouter les éléments à l'inventaire
+  extractions.forEach(e => {
+    const item = inventory.find(i => i.element === e.element);
+    if(item) {
+      item.quantity += e.quantity;
+    } else {
+      inventory.push(e);
+    }
+  });
+
+  console.log(inventory);
+  localStorage.setItem('inventory', JSON.stringify(inventory));
+
 }

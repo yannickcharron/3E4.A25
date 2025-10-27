@@ -14,3 +14,11 @@
   width: 164px;  
 }
 
+.imgElement {
+  width: 64px;
+}
+
+.element-quantity {
+  font-family: 'Saira';
+  font-size: 1.5em;
+}
