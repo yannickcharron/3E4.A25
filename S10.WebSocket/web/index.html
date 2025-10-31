@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./styles/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.13/dayjs.min.js" integrity="sha512-FwNWaxyfy2XlEINoSnZh1JQ5TRRtGow0D6XcmAWmYCRgvqOUTnzCxPc9uF35u5ZEpirk1uhlPVA19tflhvnW1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="module" src="./scripts/chat.js"></script>
+
+    <title>Demo WebSocket</title>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Page header start -->
+      <div class="page-title">
+        <div class="row gutters">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"></div>
+        </div>
+      </div>
+      <!-- Page header end -->
+
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+        <!-- Row start -->
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card m-0">
+              <!-- Row start -->
+              <div class="row no-gutters">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                  <div class="users-container">
+                    <div class="chat-username-box">
+                      <div class="input-group">
+                        <input id="txtUsername" class="form-control" value="Anonyme" />
+                        <div class="input-group-btn">
+                          <button id="btnUpdateUsername" type="button" class="btn btn-info">
+                            <i class="fa fa-refresh"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <ul class="users"></ul>
+                  </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
+                  <div class="selected-user">
+                    <span
+                      >Demo
+                      <span class="name">Socket.IO</span>
+                    </span>
+                  </div>
+                  <div class="chat-container">
+                    <ul id="chat-messages" class="chat-box chat-scroll"></ul>
+                    <div class="chat-message-box mt-3">
+                      <div class="input-group">
+                        <textarea id="txtMessage" class="form-control mx-2" placeholder="Écrire votre message ici..."></textarea>
+                        <div class="input-group-btn">
+                          <button id="btnSend" type="button" class="btn btn-info">
+                            <i class="fa-solid fa-paper-plane"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Row end -->
+            </div>
+          </div>
+        </div>
+        <!-- Row end -->
+      </div>
+      <!-- Content wrapper end -->
+    </div>
+  </body>
+</html>
