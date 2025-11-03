@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js --watch"
+    "dev": "node --watch server.js"
   },
   "author": "Yannick Charron",
   "license": "ISC",

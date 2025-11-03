@@ -1,4 +1,6 @@
 export default {
     CONNECTION: 'connection',
-    DISCONNECT: 'disconnect'
+    DISCONNECT: 'disconnect',
+    SEND: 'message:send',
+    RECEIVE: 'message:receive'
 };
