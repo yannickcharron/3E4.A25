@@ -1,5 +1,5 @@
 import IOEVENTS from '../../io-events.js';
-
+const DATE_FORMAT = 'YYYY-MM-DD HH:mm';
 const socket = io();
 
 $(document).ready(() => {
@@ -13,15 +13,24 @@ $(document).ready(() => {
     }
   });
 
-  $('#btnUpdateUsername').click(() => {});
+  $('#btnUpdateUsername').click(() => {
+    socket.emit(IOEVENTS.CHANGE_USERNAME, $('#txtUsername').val())
+  });
 });
 
 //TODO: Réceptions des évenements
 socket.on(IOEVENTS.RECEIVE, message => {
 
-    const isFromMe = message.sender === socket.id;
+    const isFromMe = message.sender.id === socket.id;
     const messageLi = createMessageUI(message, isFromMe);
     $('#chat-messages').append(messageLi);
+});
+
+socket.on(IOEVENTS.REFRESH_USERS, users => {
+  $('.users').empty();
+  users.forEach(u => {
+    $('.users').append(createUserUI(u));
+  });
 });
 
 function sendMessage() {
@@ -34,25 +43,26 @@ function sendMessage() {
   $('#txtMessage').val('');
 }
 
+
 function createMessageUI(message, isFromMe) {
   let messageLi = '';
 
   if (!isFromMe) {
     messageLi = `<li class='chat-left'>
                 <div class='chat-avatar'>
-                <img src='' alt=''>
-                <div class='chat-name'>NAME</div>
+                <img src='${message.sender.avatar}' alt='${message.sender.username}'>
+                <div class='chat-name'>${message.sender.username}</div>
                 </div>  
                 <div class='chat-text'>${message.text}</div>
-                <div class='chat-hour'>${message.timestamp}<span class='fa fa-check-circle'></span></div>
+                <div class='chat-hour'>${dayjs(message.timestamp).format(DATE_FORMAT)}<span class='fa fa-check-circle'></span></div>
             </li>`;
   } else {
     messageLi = `<li class='chat-right'>
-                <div class='chat-hour'>${message.timestamp}<span class='fa fa-check-circle'></span></div>
+                <div class='chat-hour'>${dayjs(message.timestamp).format(DATE_FORMAT)}<span class='fa fa-check-circle'></span></div>
                 <div class='chat-text'>${message.text}</div>
                 <div class='chat-avatar'>
-                    <img src='' alt=''>
-                    <div class='chat-name'>NAME</div>
+                    <img src='${message.sender.avatar}' alt='${message.sender.username}'>
+                    <div class='chat-name'>${message.sender.username}</div>
                 </div>
             </li>`;
   }
@@ -61,12 +71,12 @@ function createMessageUI(message, isFromMe) {
 }
 
 function createUserUI(user) {
-  const userLi = `<li class='person' data-chat='ID'>
+  const userLi = `<li class='person' data-chat='${user.id}'>
             <div class='user'>
-                <img src='' alt=''>
+                <img src='${user.avatar}' alt='${user.username}'>
             </div>
             <p class='name-time'>
-                <span class='name'>NAME</span>
+                <span class='name'>${user.username}</span>
             </p>
         </li>`;
 

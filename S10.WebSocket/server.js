@@ -22,26 +22,50 @@ app.use(express.static('web'));
 
 socketServer.on(IOEVENTS.CONNECTION, client => {
   console.log(`Client connecté: ${client.id}`);
+  //console.log(client);
+
+  newClient(client);
 
   client.on(IOEVENTS.SEND, message => {
     const messageToBroadcast = {
       text: message.text,
-      sender: client.id,
+      sender: client.data,
       timestamp: dayjs()
     }
 
     socketServer.emit(IOEVENTS.RECEIVE, messageToBroadcast);
 
     //IDEA: Ajouter en base de données le message
-  
-
   })  
+
+  client.on(IOEVENTS.CHANGE_USERNAME, username => {
+    client.data.username = username;
+    sendUserIdentities();
+  });
+
+  client.on(IOEVENTS.DISCONNECT, reason => {
+    sendUserIdentities();
+    //IDEA: Message de déconnexion à tous les utilisateurs
+  })
 
 });
 
-async function newUser(socket) {}
+function newClient(client) {
 
-async function sendUserIdentities() {}
+  client.data.id = client.id;
+  client.data.username = 'Anonyme';
+  client.data.avatar = randomAvatarImage();
+
+  sendUserIdentities();
+}
+
+async function sendUserIdentities() {
+  const clients = await socketServer.fetchSockets();
+  const clientsDatas = clients.map(c => c.data);
+
+  socketServer.emit(IOEVENTS.REFRESH_USERS, clientsDatas);
+
+}
 
 function randomAvatarImage() {
   const avatarNumber = Math.floor(Math.random() * 8 + 1);
