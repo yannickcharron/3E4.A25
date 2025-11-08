@@ -1,0 +1,16 @@
+meta {
+  name: [200]
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/planets
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body: isArray
+}

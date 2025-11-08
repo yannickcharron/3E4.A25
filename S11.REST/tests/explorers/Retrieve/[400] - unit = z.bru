@@ -1,0 +1,20 @@
+meta {
+  name: [400] - unit = z
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/explorers/Skadex?unit=z
+  body: none
+  auth: none
+}
+
+params:query {
+  unit: z
+}
+
+assert {
+  res.status: eq 400
+  res.body: isJson
+}

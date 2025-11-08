@@ -1,0 +1,20 @@
+meta {
+  name: [400] - unit=z
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/planets/e576dd71-791d-44fe-96c5-fd86f1932167?unit=z
+  body: none
+  auth: none
+}
+
+params:query {
+  unit: z
+}
+
+assert {
+  res.status: eq 400
+  res.body: isJson
+}

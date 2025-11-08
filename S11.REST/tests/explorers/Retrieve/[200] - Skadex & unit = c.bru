@@ -1,0 +1,20 @@
+meta {
+  name: [200] - Skadex & unit = c
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/explorers/Skadex?unit=c
+  body: none
+  auth: none
+}
+
+params:query {
+  unit: c
+}
+
+assert {
+  res.status: eq 200
+  res.body: isArray 
+}

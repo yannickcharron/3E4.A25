@@ -1,0 +1,16 @@
+meta {
+  name: [405] - Delete Planet
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{base_url}}/planets/d408c5fd-4f6f-4751-a439-83fe6dd30693
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 405
+  res.body: isJson
+}

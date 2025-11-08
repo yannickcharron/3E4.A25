@@ -1,0 +1,16 @@
+meta {
+  name: [404]
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/planets/7de8a84d-f931-4940-8617-d5016f8fc5c6
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+  res.body: isJson
+}
