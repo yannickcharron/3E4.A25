@@ -5,9 +5,14 @@ meta {
 }
 
 get {
-  url: {{base_url}}/explorations
+  url: {{base_url}}/explorations?page=20&limit=20
   body: none
   auth: inherit
+}
+
+params:query {
+  page: 20
+  limit: 20
 }
 
 settings {

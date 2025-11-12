@@ -40,7 +40,9 @@ class PlanetRepository {
             `${planet.position.x.toString(16)}@${planet.position.y.toString(16)}#${planet.position.z.toString(16)}`;
 
         //TODO: Ajouter de nouvelles transformations
+        planet.href = `${process.env.BASE_URL}:${process.env.PORT}/planets/${planet.uuid}`;
 
+        delete planet.uuid;
         delete planet._id;
         delete planet.__v;
     
