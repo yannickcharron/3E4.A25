@@ -7,10 +7,9 @@ class ExplorationsRepository {
   }
 
   retrieveWithOptions(options) {
-    console.log(options);
     const retrieveQuery = Exploration.find()
       .limit(options.limit)
-      .skip(options.page * options.limit)
+      .skip(options.skip)
       .sort({ explorationDate: 1 })
       .populate('planet', 'uuid');
 
@@ -18,7 +17,7 @@ class ExplorationsRepository {
       retrieveQuery.populate('planet');
     }
 
-    return retrieveQuery;
+    return Promise.all([ retrieveQuery, Exploration.countDocuments() ]);
   }
 
   retrieveByCriteria(filter, retrieveOptions) {}

@@ -1,30 +1,28 @@
 import express from 'express';
-import HttpError from 'http-errors';
-import paginate from 'express-paginate';
+import paginateMiddleware from '../middlewares/paginate.js';
+import HttpErrors from 'http-errors';
 
 import explorationsRepository from '../repositories/exploration.repository.js';
 
 const router = express.Router();
 
-router.get('/', paginate.middleware(20, 50), getAll);
+router.get('/', paginateMiddleware({ defaultLimit:25, defaultMaxLimit: 50 }) , getAll);
 router.get('/:uuidExploration', getOne);
 
 async function getAll(req, res, next) {
 
-    console.log(req.skip);
-
     try {
 
         const options = {
-            limit: parseInt(req.query.limit, 10),
-            page: parseInt(req.query.page, 10)
+            skip: req.pagination.skip,
+            limit: req.pagination.limit
         }
 
         if(req.query.embed && req.query.embed === 'planet') {
             options.planet = true;
         }
 
-        let explorations = await explorationsRepository.retrieveWithOptions(options);
+        let [ explorations, totalDocuments ] = await explorationsRepository.retrieveWithOptions(options);
 
         explorations = explorations.map(e => {
             e = e.toObject();
@@ -32,7 +30,26 @@ async function getAll(req, res, next) {
             return e;
         });
 
-        res.status(200).json(explorations);
+        const totalPages = Math.ceil(totalDocuments / req.pagination.limit);
+
+        if(req.pagination.page > totalPages) {
+            throw HttpErrors.BadRequest(`La page demandée doit être inférieure à ${totalPages}`);
+        }
+
+        const responseBody = {
+            _metadata: {
+                page: req.pagination.page,
+                limit: req.pagination.limit,
+                skip: req.pagination.skip,
+                hasNextPage: req.pagination.page < totalPages,
+                totalPages: totalPages,
+                totalDocuments: totalDocuments
+            },
+            _links: req.pagination.links(totalPages),
+            data: explorations
+        }
+
+        res.status(200).json(responseBody);
 
     } catch(err) {
         return next(err);
