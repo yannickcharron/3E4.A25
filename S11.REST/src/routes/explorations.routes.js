@@ -15,11 +15,16 @@ async function getAll(req, res, next) {
 
         const options = {
             skip: req.pagination.skip,
-            limit: req.pagination.limit
+            limit: req.pagination.limit,
+            filter: {}
         }
 
         if(req.query.embed && req.query.embed === 'planet') {
             options.planet = true;
+        }
+
+        if(req.query.element) {
+            options.filter = { 'scans.element' : req.query.element };
         }
 
         let [ explorations, totalDocuments ] = await explorationsRepository.retrieveWithOptions(options);

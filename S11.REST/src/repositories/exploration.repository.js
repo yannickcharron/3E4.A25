@@ -7,7 +7,7 @@ class ExplorationsRepository {
   }
 
   retrieveWithOptions(options) {
-    const retrieveQuery = Exploration.find()
+    const retrieveQuery = Exploration.find(options.filter)
       .limit(options.limit)
       .skip(options.skip)
       .sort({ explorationDate: 1 })
@@ -17,7 +17,7 @@ class ExplorationsRepository {
       retrieveQuery.populate('planet');
     }
 
-    return Promise.all([ retrieveQuery, Exploration.countDocuments() ]);
+    return Promise.all([ retrieveQuery, Exploration.countDocuments(options.filter) ]);
   }
 
   retrieveByCriteria(filter, retrieveOptions) {}

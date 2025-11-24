@@ -1,0 +1,32 @@
+meta {
+  name: [200] Update partial
+  type: http
+  seq: 1
+}
+
+patch {
+  url: {{base_url}}/planets/807e6bdf-82d5-42da-8d1a-22d87688330f?_body=false
+  body: json
+  auth: inherit
+}
+
+params:query {
+  _body: false
+}
+
+body:json {
+  {
+    "temperature": "banane",
+    "uuid":"test",
+    "position": {
+      "x": -93445,
+      "y": 500,
+      "z": 987
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

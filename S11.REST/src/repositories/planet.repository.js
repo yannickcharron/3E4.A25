@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import Planet from '../models/planet.model.js';
+import explorationRepository from './exploration.repository.js';
 
 const ZERO_KELVIN = -273.15;
 
@@ -15,6 +16,11 @@ class PlanetRepository {
 
     retrieveByUUID(planetUUID, retrieveOptions) {
         const retrieveQuery = Planet.findOne({uuid: planetUUID});
+
+        if(retrieveOptions.explorations) {
+            retrieveQuery.populate('explorations');
+        }
+
         return retrieveQuery;
     }
 
@@ -23,7 +29,8 @@ class PlanetRepository {
     }
 
     update(planetUUID, planet) {
-        //TODO: Permettre la mise à jour
+        const filter = { uuid: planetUUID};
+        return Planet.findOneAndUpdate(filter, {$set: Object.assign(planet)}, { new:true, runValidators: true })
     }
 
     transform(planet, transformOptions = {}) {
@@ -39,8 +46,17 @@ class PlanetRepository {
         planet.lightspeed = 
             `${planet.position.x.toString(16)}@${planet.position.y.toString(16)}#${planet.position.z.toString(16)}`;
 
-        //TODO: Ajouter de nouvelles transformations
         planet.href = `${process.env.BASE_URL}:${process.env.PORT}/planets/${planet.uuid}`;
+        //TODO: Ajouter de nouvelles transformations
+
+        if(planet.explorations) {
+            planet.explorations = planet.explorations.map(e => {
+                e = explorationRepository.transform(e);
+                e.planet.href = planet.href;
+                //delete e.planet;
+                return e;
+            });
+        }
 
         delete planet.uuid;
         delete planet._id;

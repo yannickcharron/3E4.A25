@@ -20,7 +20,14 @@ const planetSchema = mongoose.Schema({
     id:false
 });
 
-//TODO: Virtual
+//Virtual
+
+planetSchema.virtual('explorations', {
+    ref: 'Exploration',
+    localField: '_id',
+    foreignField: 'planet',
+    justOne: false
+});
   
 
 export default mongoose.model('Planet', planetSchema);
